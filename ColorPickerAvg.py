@@ -1,4 +1,5 @@
 from ColorPickerGTK import ColorPickerGTK
+import numpy
 
 class ColorPickerAvg(ColorPickerGTK):
 
@@ -10,48 +11,26 @@ class ColorPickerAvg(ColorPickerGTK):
 		pass
 
 	def getColor(self):
-		return self.avgGridColor(self.numberOfSamples)
+		colors = self.pickColors(self.numberOfSamples)
+		color = self.avgColor(colors)
+		return color
 
-	def avgLineColor(self, posY, numberOfSamples):
-		increment = self.screenWidth() / (numberOfSamples + 1)
-		outputColors = []
-		avgR = 0
-		avgG = 0
-		avgB = 0
+	def pickColors(self, numberOfSamples):
+		offsetX = self.screenWidth() / (numberOfSamples + 1)
+		offsetY = self.screenHeight() / (numberOfSamples + 1)
 
-		for i in xrange(1, numberOfSamples + 1):
-			offsetX = i * increment
-			rgb = self.pixelAt(offsetX, posY)
-			avgR += rgb[0]
-			avgG += rgb[1]
-			avgB += rgb[2]
-			outputColors.append(rgb)
-			# print str(i) + ": " + str(offsetX) + " " + str(posY) + " -> " + str(rgb)
+		colorList = []
 
-		avgR /= numberOfSamples
-		avgG /= numberOfSamples
-		avgB /= numberOfSamples
+		for y in xrange(1,numberOfSamples + 1):
+			for x in xrange(1,numberOfSamples + 1):
+				color = self.pixelAt(x*offsetX,y*offsetY)
+				colorList.append(color)
 
-		return (avgR, avgG, avgB)
+		return colorList
 
-	def avgGridColor(self, numberOfSamples):
-		increment = self.screenHeight() / (numberOfSamples + 1)
-		outputColors = []
-		avgR = 0
-		avgG = 0
-		avgB = 0
-
-		for i in xrange(1, numberOfSamples + 1):
-			offset = i * increment
-			rgb = self.avgLineColor(offset, numberOfSamples)
-			avgR += rgb[0]
-			avgG += rgb[1]
-			avgB += rgb[2]
-			outputColors.append(rgb)
-			# print str(i) + ": " + str(offset) + " " + str(topMargin) + " -> " + str(rgb)
-
-		avgR /= numberOfSamples
-		avgG /= numberOfSamples
-		avgB /= numberOfSamples
-
-		return (avgR, avgG, avgB)
+	def avgColor(self, colors):
+		rs, gs, bs = zip(*colors)
+		r = numpy.mean(rs)
+		g = numpy.mean(gs)
+		b = numpy.mean(bs)
+		return (r, g, b)
