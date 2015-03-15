@@ -5,6 +5,7 @@ import sys
 from time import sleep
 
 from ColorPickerAvg import ColorPickerAvg
+from ColorPickerExperimental import ColorPickerExperimental
 from DmxWebSocket import DmxWebSocket
 from Postprocessor import Postprocessor
 from PostprocessSmooth import PostprocessSmooth
@@ -17,8 +18,8 @@ def signal_handler(signal, frame):
 
 def setupFilters(initialColor):
 	postprocessor = Postprocessor()
-	postprocessor = PostprocessSaturation(postprocessor, 2)
-	postprocessor = PostprocessSmooth(postprocessor, initialColor, 0.2)
+	postprocessor = PostprocessSaturation(postprocessor, 1.5)
+	postprocessor = PostprocessSmooth(postprocessor, initialColor, 0.5)
 	return postprocessor
 
 def runloop():
@@ -26,7 +27,7 @@ def runloop():
 	
 	socket = DmxWebSocket()
 
-	nrOfSamplesToBeSquared = 10
+	nrOfSamplesToBeSquared = 30
 	newFactor = 0.2
 	picker = ColorPickerAvg(nrOfSamplesToBeSquared)
 	filters = setupFilters(picker.getColor())
