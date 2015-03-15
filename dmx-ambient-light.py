@@ -17,7 +17,7 @@ def signal_handler(signal, frame):
 
 def setupFilters(initialColor):
 	postprocessor = Postprocessor()
-	postprocessor = PostprocessSaturation(postprocessor)
+	postprocessor = PostprocessSaturation(postprocessor, 2)
 	postprocessor = PostprocessSmooth(postprocessor, initialColor, 0.2)
 	return postprocessor
 
