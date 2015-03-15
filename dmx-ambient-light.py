@@ -27,7 +27,7 @@ def runloop():
 	
 	socket = DmxWebSocket()
 
-	nrOfSamplesToBeSquared = 30
+	nrOfSamplesToBeSquared = 10
 	newFactor = 0.2
 	picker = ColorPickerAvg(nrOfSamplesToBeSquared)
 	filters = setupFilters(picker.getColor())
