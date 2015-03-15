@@ -1,23 +1,18 @@
 import colorsys
+from Postprocessor import Postprocessor
 
-class ColorPostprocessor(object):
+class PostprocessSaturation(Postprocessor):
 
-	def __init__(self, initialColor, delayFactor):
-		self.oldColor = initialColor
-		self.newFactor = delayFactor
+	def __init__(self, previous):
+		Postprocessor.__init__(self)
+		self.previousPostprocessor = previous
 
 	def __del__(self):
 		pass
 
 	def processColor(self, newColor):
-		self.oldColor = self.mixColors(self.oldColor, newColor, self.newFactor)
-		return self.increaseSaturation(self.oldColor)
-
-	def mixColors(self, oldColor, newColor, factor = 0.15):
-		newFactor = factor
-		return(	int((1 - newFactor)*oldColor[0] + (newFactor) * newColor[0]),
-			int((1 - newFactor)*oldColor[1] + (newFactor) * newColor[1]),
-			int((1 - newFactor)*oldColor[2] + (newFactor) * newColor[2]) )
+		color = self.previousPostprocessor.processColor(newColor)
+		return self.increaseSaturation(color)
 
 	def increaseSaturation(self, color):
 		floatColor = self.floatColor(color)
