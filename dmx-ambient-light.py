@@ -29,7 +29,7 @@ def runloop():
 
 	nrOfSamplesToBeSquared = 10
 	newFactor = 0.2
-	picker = ColorPickerAvg(nrOfSamplesToBeSquared)
+	picker = ColorPickerExperimental(nrOfSamplesToBeSquared)
 	filters = setupFilters(picker.getColor())
 
 	global continueRunning

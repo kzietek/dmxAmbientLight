@@ -18,8 +18,15 @@ class ColorPickerExperimental(ColorPickerGTK):
 
 	def getColor(self):
 		colors = self.pickColors(self.numberOfSamples)
-		color = self.getByClustering(colors)
+		color = self.medianColor(colors)
 		return color
+
+	def medianColor(self, colors):
+		rs, gs, bs = zip(*colors)
+		r = numpy.median(rs)
+		g = numpy.median(gs)
+		b = numpy.median(bs)
+		return (r, g, b)
 
 	def getByClustering(self, colors):
 		ar = numpy.array(colors)
