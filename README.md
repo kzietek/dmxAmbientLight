@@ -11,7 +11,7 @@ The problem is that my USB dmx controller ( KWMATIK kw-d-01 ) is a little tricky
 ## Requirements ##
  - a dmx device supported by Q Light Controller Plus
  - a running QLCPlus with websockets enabled (run with parameter: qlcplus -w )
- - some python dependences
+ - some python dependences (scipy, websocket)
 
 ## Usage ##
  - Ensure your dmx hardware is working properly with QLCPlus

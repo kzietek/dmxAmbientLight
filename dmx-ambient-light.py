@@ -10,6 +10,7 @@ from DmxWebSocket import DmxWebSocket
 from Postprocessor import Postprocessor
 from PostprocessSmooth import PostprocessSmooth
 from PostprocessSaturation import PostprocessSaturation
+from PostprocessOutputLimiter import PostprocessOutputLimiter
 
 def signal_handler(signal, frame):
         global continueRunning
@@ -18,8 +19,9 @@ def signal_handler(signal, frame):
 
 def setupFilters(initialColor):
 	postprocessor = Postprocessor()
-	postprocessor = PostprocessSaturation(postprocessor, 1.5)
-	postprocessor = PostprocessSmooth(postprocessor, initialColor, 0.5)
+	postprocessor = PostprocessSaturation(postprocessor, 1.0)
+	# postprocessor = PostprocessSmooth(postprocessor, initialColor, 0.3)
+	# postprocessor = PostprocessOutputLimiter(postprocessor, 0.3)
 	return postprocessor
 
 def runloop():
