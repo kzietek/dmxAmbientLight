@@ -5,7 +5,7 @@ import scipy
 import scipy.misc
 import scipy.cluster
 
-import Image
+from PIL import Image
 
 class ColorPickerExperimental(ColorPickerGTK):
 
